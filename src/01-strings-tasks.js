@@ -176,7 +176,7 @@ function convertToUpperCase(str) {
  *   'info@gmail.com' => ['info@gmail.com']
  */
 function extractEmails(str) {
-  return str.split(";")
+  return str.split(';');
 }
 
 /**
@@ -203,7 +203,7 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(width, height) {
-  return "";
+  return width * height;
 }
 
 
@@ -241,7 +241,7 @@ function encodeToRot13(/* str */) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-  return typeof value == 'string' ? true : false;
+  return typeof value === 'string';
 }
 
 
@@ -270,10 +270,13 @@ function isString(value) {
  *   'K♠' => 51
  */
 function getCardId(val) {
-  let koloda = "','A♣','2♣','3♣','4♣','5♣','6♣','7♣','8♣','9♣','10♣','J♣','Q♣','K♣','A♦','2♦','3♦','4♦','5♦','6♦','7♦','8♦','9♦','10♦','J♦','Q♦','K♦','A♥','2♥','3♥','4♥','5♥','6♥','7♥','8♥','9♥','10♥','J♥','Q♥','K♥','A♠','2♠','3♠','4♠','5♠','6♠','7♠','8♠','9♠','10♠','J♠','Q♠','K♠','";
-  let y = koloda.split("\',\'");
+  const mast = ['♣', '♦', '♥', '♠'];
+  const nam = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+  if (val.length === 3) {
+    return mast.indexOf(val[2]) * 13 + 9;
+  }
 
-  return koloda.indexOf(val) - 1;
+  return nam.indexOf(val[0]) + mast.indexOf(val[1]) * 13;
 }
 
 
