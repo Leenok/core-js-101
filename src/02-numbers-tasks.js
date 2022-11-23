@@ -52,7 +52,7 @@ function getCircleCircumference(radius) {
  *  -3, 3  => 0
  */
 function getAverage(value1, value2) {
-  return (value1 + value2) / 2;
+  return value1 / 2 + value2 / 2;
 }
 
 /**
@@ -89,7 +89,7 @@ function getDistanceBetweenPoints(x1, y1, x2, y2) {
  *   5*x = 0         => 0
  */
 function getLinearEquationRoot(a, b) {
-  return b / a;
+  return -b / a;
 }
 
 
@@ -112,7 +112,8 @@ function getLinearEquationRoot(a, b) {
  *   (0,1) (1,2)     => 0
  */
 function getAngleBetweenVectors(x1, y1, x2, y2) {
-  return Math.atan2(y2 - y1, x2 - x1);
+  const z = (Math.sqrt(x1 ** 2 + y1 ** 2)) * (Math.sqrt(x2 ** 2 + y2 ** 2));
+  return Math.acos((x2 * x1 + y1 * y2) / z);
 }
 
 /**
@@ -203,8 +204,13 @@ function roundToPowerOfTen(num, pow) {
  *   16 => false
  *   17 => true
  */
-function isPrime(n) {
-  return (n % 2 === 0);
+function isPrime(num) {
+  for (let i = 2; i < num; i += 1) {
+    if (num % i === 0) {
+      return false;
+    }
+  }
+  return num > 1;
 }
 
 /**

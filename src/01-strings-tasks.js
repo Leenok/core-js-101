@@ -126,8 +126,9 @@ function repeatString(str, count) {
  *   'I like legends', 'end' => 'I like legs',
  *   'ABABAB','BA' => 'ABAB'
  */
-function removeFirstOccurrences(/* str, value */) {
-  throw new Error('Not implemented');
+function removeFirstOccurrences(str, value) {
+  const y = str.indexOf(value);
+  return str.slice(0, y).trim() + str.slice(value.length + y);
 }
 
 /**
@@ -203,7 +204,13 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(width, height) {
-  return width * height;
+  let resStr = `┌${'─'.repeat(width - 2)}┐\n`;
+
+  for (let i = 0; i < height - 2; i += 1) {
+    resStr += `│${' '.repeat(width - 2)}│\n`;
+  }
+  resStr += `└${'─'.repeat(width - 2)}┘\n`;
+  return resStr;
 }
 
 
@@ -223,8 +230,10 @@ function getRectangleString(width, height) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  const old = ' ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
+  const n = ' NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'.split('');
+  return str.split('').map((item) => n[old.indexOf(item)] || item).join('');
 }
 
 /**
@@ -241,7 +250,7 @@ function encodeToRot13(/* str */) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-  return typeof value === 'string';
+  return (typeof value === 'string' || value instanceof String);
 }
 
 
