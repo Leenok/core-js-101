@@ -23,9 +23,7 @@
 function Rectangle(width, height) {
   this.width = width;
   this.height = height;
-  this.getArea = function () {
-    return this.height * this.width;
-  };
+  this.getArea = () => this.height * this.width;
 }
 
 
