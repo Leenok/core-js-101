@@ -23,8 +23,10 @@
  *   getComposition(Math.sin, Math.asin)(x) => Math.sin(Math.asin(x))
  *
  */
-function getComposition(/* f, g */) {
-  throw new Error('Not implemented');
+function getComposition(f, g) {
+  return function fn(x) {
+    return f(g(x));
+  };
 }
 
 
@@ -44,8 +46,10 @@ function getComposition(/* f, g */) {
  *   power05(16) => 4
  *
  */
-function getPowerFunction(/* exponent */) {
-  throw new Error('Not implemented');
+function getPowerFunction(exponent) {
+  return function fun(x) {
+    return x ** exponent;
+  };
 }
 
 
@@ -62,8 +66,19 @@ function getPowerFunction(/* exponent */) {
  *   getPolynom(8)     => y = 8
  *   getPolynom()      => null
  */
-function getPolynom() {
-  throw new Error('Not implemented');
+function getPolynom(...ar) {
+  return function newf(x) {
+    if (ar.length === 3) {
+      return ar[0] * x ** 2 + ar[1] * x + ar[2];
+    }
+    if (ar.length === 2) {
+      return ar[0] * x + ar[1];
+    }
+    if (ar.length === 1) {
+      return ar[0];
+    }
+    return null;
+  };
 }
 
 
@@ -81,8 +96,11 @@ function getPolynom() {
  *   ...
  *   memoizer() => the same random number  (next run, returns the previous cached result)
  */
-function memoize(/* func */) {
-  throw new Error('Not implemented');
+function memoize(func) {
+  const z = func();
+  return function ne() {
+    return z;
+  };
 }
 
 
@@ -147,8 +165,10 @@ function logger(/* func, logFunc */) {
  *   partialUsingArguments(fn, 'a','b','c')('d') => 'abcd'
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
-function partialUsingArguments(/* fn, ...args1 */) {
-  throw new Error('Not implemented');
+function partialUsingArguments(fn, ...args1) {
+  return function newfun(...ar) {
+    return fn(...args1, ...ar);
+  };
 }
 
 
@@ -169,8 +189,12 @@ function partialUsingArguments(/* fn, ...args1 */) {
  *   getId4() => 7
  *   getId10() => 11
  */
-function getIdGeneratorFunction(/* startFrom */) {
-  throw new Error('Not implemented');
+function getIdGeneratorFunction(startFrom) {
+  let ind = startFrom - 1;
+  return function newgen() {
+    ind += 1;
+    return ind;
+  };
 }
 
 

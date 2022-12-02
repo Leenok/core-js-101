@@ -297,8 +297,14 @@ function reverseInteger(num) {
  *   5436468789016589 => false
  *   4916123456789012 => false
  */
-function isCreditCardNumber(/* ccn */) {
-  throw new Error('Not implemented');
+function isCreditCardNumber(ccn) {
+  const rr = ccn.toString().split('').reverse().map((it, ind) => {
+    if (ind % 2 !== 0) {
+      const r = it * 2;
+      if (r > 9) { return r - 9; } return r;
+    } return +it;
+  });
+  return rr.reduce((sum, cur) => sum + cur, 0) % 10 === 0;
 }
 
 /**
@@ -443,8 +449,31 @@ function getCommonDirectoryPath(pathes) {
  *                         [ 6 ]]
  *
  */
-function getMatrixProduct(/* m1, m2 */) {
-  throw new Error('Not implemented');
+function getMatrixProduct(m1, m2) {
+  const newX = m1.length;
+  const newY = m2[0].length;
+  const newmat = new Array(newX).fill(0).map(() => new Array(newY).fill(0));
+
+  const vertM2 = [];
+  for (let i = 0; i < m2[0].length; i += 1) {
+    const z = [];
+    for (let j = 0; j < m2.length; j += 1) {
+      z.push(m2[j][i]);
+    }
+    vertM2.push(z);
+  }
+  if (newmat.length === 1) {
+    const g = m1[0].map((it, ind) => it * vertM2[0][ind]).reduce((sum, cur) => sum + cur, 0);
+    newmat[0][0] = g;
+    return newmat;
+  }
+  for (let i = 0; i < newmat.length; i += 1) {
+    for (let j = 0; j < newmat[i].length; j += 1) {
+      const z = m1[i].map((it, ind) => it * vertM2[j][ind]).reduce((sum, cur) => sum + cur, 0);
+      newmat[i][j] = z;
+    }
+  }
+  return newmat;
 }
 
 
@@ -478,8 +507,36 @@ function getMatrixProduct(/* m1, m2 */) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(/* position */) {
-  throw new Error('Not implemented');
+function lines(arr) {
+  for (let i = 0; i < 3; i += 1) {
+    if ((arr[i].join('') === '000')) {
+      return '0';
+    }
+    if (arr[i].join('') === 'XXX') {
+      return 'X';
+    }
+  }
+  return undefined;
+}
+function evaluateTicTacToePosition(position) {
+  const vert = [[], [], []];
+  const df = [position[0][0], position[1][1], position[2][2]];
+  const ds = [position[0][2], position[1][1], position[2][0]];
+  if ((df.join('') === '000') || (ds.join('') === '000')) {
+    return '0';
+  }
+  if ((df.join('') === 'XXX') || (ds.join('') === 'XXX')) {
+    return 'X';
+  }
+
+  for (let i = 0; i < 3; i += 1) {
+    for (let j = 0; j < 3; j += 1) {
+      if (position[i][j]) {
+        vert[j][i] = position[i][j];
+      }
+    }
+  }
+  return lines(position) || lines(vert);
 }
 
 
